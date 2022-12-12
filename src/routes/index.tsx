@@ -1,34 +1,25 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { RootStackParamList } from "../../types/rootStackParamList";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import StackRoutes from "./stackRoutes";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import CustomDrawer from "../components/CustomDrawer";
 
 export default function Routes() {
-  const Tab = createBottomTabNavigator<RootStackParamList>();
-  return (
-    <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarHideOnKeyboard: true,
-        tabBarShowLabel: false,
-        tabBarActiveTintColor: "#FFF",
+  const Drawer = createDrawerNavigator();
 
-        tabBarStyle: {
-          backgroundColor: "#202225",
-          borderTopWidth: 0,
+  return (
+    <Drawer.Navigator
+      drawerContent={CustomDrawer}
+      screenOptions={{
+        headerShown: true,
+        drawerStyle: {
+          backgroundColor: "#FFF",
         },
+        drawerActiveBackgroundColor: "#00dae4",
+        drawerActiveTintColor: "#FFF",
+        drawerInactiveBackgroundColor: "#f1f1f1",
+        drawerInactiveTintColor: "#000",
       }}
     >
-      <Tab.Screen
-        name="Home"
-        component={StackRoutes}
-        options={{
-          tabBarLabel: "Inicio",
-          tabBarIcon: ({ color, size }) => {
-            return <Ionicons name="home" size={size} color={color} />;
-          },
-        }}
-      />
-    </Tab.Navigator>
+      <Drawer.Screen name="HomeStack" component={StackRoutes}></Drawer.Screen>
+    </Drawer.Navigator>
   );
 }
